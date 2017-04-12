@@ -1,0 +1,142 @@
+What is Database
+
+A database is an organized collection of data.It is the collection of schemas, tables, queries, reports, views, and other objects. The data are typically organized to model aspects of reality in a way that supports processes requiring information, such as modelling the availability of rooms in hotels in a way that supports finding a hotel with vacancies.
+
+What is Table
+
+In relational databases and flat file databases, a table is a set of data elements (values) using a model of vertical columns (identifiable by name) and horizontal rows, the cell being the unit where a row and column intersect. A table has a specified number of columns, but can have any number of rows.
+
+
+What is Column
+
+In the context of a relational database, a column is a set of data values of a particular simple type, one for each row of the table. The columns provide the structure according to which the rows are composed.
+
+What is Row
+
+In the context of a relational database, a row—also called a record or tuple—represents a single, implicitly structured data item in a table. In simple terms, a database table can be thought of as consisting of rows and columns or fields.
+
+Example for Inner join
+
+The INNER JOIN keyword selects all rows from both tables as long as there is a match between the columns in both tables.
+
+SELECT Customers.CustomerName, Orders.OrderID
+FROM Customers
+INNER JOIN Orders
+ON Customers.CustomerID=Orders.CustomerID
+ORDER BY Customers.CustomerName;
+
+Example for Left outer join
+
+The LEFT JOIN keyword returns all rows from the left table (table1), with the matching rows in the right table (table2). The result is NULL in the right side when there is no match.
+
+SELECT Customers.CustomerName, Orders.OrderID
+FROM Customers
+LEFT JOIN Orders
+ON Customers.CustomerID=Orders.CustomerID
+ORDER BY Customers.CustomerName;
+
+
+Example for Right outer join
+
+The RIGHT JOIN keyword returns all rows from the right table (table2), with the matching rows in the left table (table1). The result is NULL in the left side when there is no match.
+
+SELECT Orders.OrderID, Employees.FirstName
+FROM Orders
+RIGHT JOIN Employees
+ON Orders.EmployeeID=Employees.EmployeeID
+ORDER BY Orders.OrderID;
+
+
+
+Example for Max, sum, Avg
+
+The MAX() function returns the largest value of the selected column.
+
+SELECT MAX(Price) AS HighestPrice FROM Products;
+
+The SUM() function returns the total sum of a numeric column.
+
+SELECT SUM(Quantity) AS TotalItemsOrdered FROM OrderDetails;
+
+The AVG() function returns the average value of a numeric column.
+
+SELECT ProductName, Price FROM Products
+WHERE Price>(SELECT AVG(Price) FROM Products);
+
+Example for Group by
+
+The GROUP BY statement is used in conjunction with the aggregate functions to group the result-set by one or more columns.
+
+SELECT Shippers.ShipperName,COUNT(Orders.OrderID) AS NumberOfOrders FROM Orders
+LEFT JOIN Shippers
+ON Orders.ShipperID=Shippers.ShipperID
+GROUP BY ShipperName;
+
+Example for Having
+	The HAVING clause was added to SQL because the WHERE keyword could not be used with aggregate functions.
+EX
+	SELECT Employees.LastName, COUNT(Orders.OrderID) AS NumberOfOrders FROM Orders
+	INNER JOIN Employees
+	ON Orders.EmployeeID=Employees.EmployeeID
+	WHERE LastName='Sowmya' OR LastName='Koneru'
+	GROUP BY LastName
+	HAVING COUNT(Orders.OrderID) > 2;
+Example for Where condition
+
+
+
+Example for Primary key
+	The PRIMARY KEY constraint uniquely identifies each record in a database table.Primary keys must contain UNIQUE values.A primary key column cannot contain NULL values.
+
+EX:  	CREATE TABLE Persons
+	(
+	P_Id int NOT NULL PRIMARY KEY,
+	LastName varchar(11) NOT NULL,
+	FirstName varchar(11),
+	Address varchar(11),
+	City varchar(11)
+	)
+
+Example for Foreign key
+	A FOREIGN KEY in one table points to a PRIMARY KEY in another table.
+
+EX:	CREATE TABLE Orders
+	(
+	O_Id int NOT NULL,
+	OrderNo int NOT NULL,
+	P_Id int,
+	PRIMARY KEY (O_Id),
+	FOREIGN KEY (P_Id) REFERENCES Persons(P_Id)
+	)
+
+Finding second highest salary from row table
+
+	SELECT MAX(Salary) FROM Employee
+	WHERE Salary NOT IN (SELECT MAX(Salary) FROM Employee )
+
+Use cases:
+Tables for employee management system
+    Emp
+    Empid --- primary key
+CREATE TABLE EMPLOYEE
+	(
+	emp_Id int NOT NULL PRIMARY KEY,
+	FirstName varchar(255),
+        Salary int(15),
+	LastName varchar(255),
+	ManagerName varchar(255),
+	City varchar(255)
+	)
+        
+Tables for e-commerce management system
+
+
+
+Tables for Library management system
+
+
+
+
+
+
+
